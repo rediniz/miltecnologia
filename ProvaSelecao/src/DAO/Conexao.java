@@ -16,18 +16,18 @@ import javax.swing.JOptionPane;
  */
 public class Conexao {
 
-    private static final String STR_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE = "prova";
-    private static final String IP = "127.0.0.1";
-    private static final String STR_CON = "jdbc:mysql://" + IP + ":3306/" + DATABASE;
-    private static final String USER = "root";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String BANCO = "prova";
+    private static final String HOST = "127.0.0.1";
+    private static final String STR_CON = "jdbc:mysql://" + HOST + ":3306/" + BANCO;
+    private static final String USUARIO = "root";
     private static final String PASSWORD = "admin";
-    private static Connection objConexao = null;
+    private static Connection con = null;
 
     public Conexao() {
         try {
-            Class.forName(STR_DRIVER);
-            objConexao = DriverManager.getConnection(STR_CON, USER, PASSWORD);
+            Class.forName(DRIVER);
+            con = DriverManager.getConnection(STR_CON, USUARIO, PASSWORD);
         } catch (ClassNotFoundException e) {
             String errorMsg = "Driver de conexão não encontrado: " + e.getMessage();
             JOptionPane.showMessageDialog(null, errorMsg, "Mensagem", JOptionPane.ERROR_MESSAGE);
@@ -38,9 +38,9 @@ public class Conexao {
     }
 
     public static Connection getConexao() {
-        if (objConexao == null) {
-            Conexao objGlobal = new Conexao();
+        if (con == null) {
+            Conexao con= new Conexao();
         }
-        return objConexao;
+        return con;
     }
 }
