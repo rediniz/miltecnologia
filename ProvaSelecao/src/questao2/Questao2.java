@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package Modelo;
+package questao2;
 
 /**
  *
  * @author Renato Diniz Ferreira - 1220735
  */
-public class ProdutoModelo {
+public class Questao2 {
 
 }

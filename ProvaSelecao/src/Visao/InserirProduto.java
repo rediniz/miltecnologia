@@ -5,17 +5,28 @@
  */
 package Visao;
 
+import Modelo.Produto;
+import DAO.ProdutoDAO;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author RenatoD
  */
-public class Janela extends javax.swing.JFrame {
+public class InserirProduto extends javax.swing.JFrame {
 
     /**
      * Creates new form Janela
      */
-    public Janela() {
+    public InserirProduto() {
         initComponents();
+
     }
 
     /**
@@ -31,17 +42,18 @@ public class Janela extends javax.swing.JFrame {
         field_nomeProduto = new javax.swing.JTextField();
         label_Marca = new javax.swing.JLabel();
         combo_marca = new javax.swing.JComboBox();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        ffield_dataCadastro = new javax.swing.JFormattedTextField();
         label_dataCadastro = new javax.swing.JLabel();
         label_valorUnitario = new javax.swing.JLabel();
         field_valorUnitario = new javax.swing.JTextField();
         label_quantidade = new javax.swing.JLabel();
         field_quantidade = new javax.swing.JTextField();
         label_idFornecedor = new javax.swing.JLabel();
-        field_idFornecedor = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        field_cnpjFornecedor = new javax.swing.JTextField();
+        button_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inserir Produto");
 
         labelNomeProduto.setText("Nome:");
 
@@ -55,9 +67,14 @@ public class Janela extends javax.swing.JFrame {
 
         label_quantidade.setText("Quantidade:");
 
-        label_idFornecedor.setText("Identificação do Fornecedor:");
+        label_idFornecedor.setText("CNPJ do Fornecedor:");
 
-        jButton1.setText("Cadastrar");
+        button_cadastrar.setText("Cadastrar");
+        button_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_cadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,11 +92,11 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(label_quantidade)
                     .addComponent(field_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_idFornecedor)
-                    .addComponent(field_idFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(field_cnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(ffield_dataCadastro, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(field_valorUnitario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                    .addComponent(jButton1))
+                    .addComponent(button_cadastrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,7 +113,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(label_dataCadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ffield_dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(label_valorUnitario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -108,14 +125,42 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(label_idFornecedor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(field_idFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(field_cnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(button_cadastrar)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cadastrarActionPerformed
+
+        if (validaCampos()) {
+
+            String nome = field_nomeProduto.getText();
+            String marca = combo_marca.getSelectedItem().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataCadastro = null;
+
+            try {
+                java.util.Date parsed = sdf.parse(ffield_dataCadastro.getText());
+                dataCadastro = new Date(parsed.getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(InserirProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            double valorUnitario = Double.valueOf(field_valorUnitario.getText());
+            int quantidade = Integer.valueOf(field_quantidade.getText());
+            String fornecedor = field_cnpjFornecedor.getText();
+
+            ArrayList valores = new ArrayList();
+
+            Produto novoProduto = new Produto(nome, marca, dataCadastro, valorUnitario, quantidade, fornecedor);
+
+            ProdutoDAO.salvar(novoProduto);
+        }
+    }//GEN-LAST:event_button_cadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,32 +179,33 @@ public class Janela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Janela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Janela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Janela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Janela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Janela().setVisible(true);
+                new InserirProduto().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_cadastrar;
     private javax.swing.JComboBox combo_marca;
-    private javax.swing.JTextField field_idFornecedor;
+    private javax.swing.JFormattedTextField ffield_dataCadastro;
+    private javax.swing.JTextField field_cnpjFornecedor;
     private javax.swing.JTextField field_nomeProduto;
     private javax.swing.JTextField field_quantidade;
     private javax.swing.JTextField field_valorUnitario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel labelNomeProduto;
     private javax.swing.JLabel label_Marca;
     private javax.swing.JLabel label_dataCadastro;
@@ -167,4 +213,29 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JLabel label_quantidade;
     private javax.swing.JLabel label_valorUnitario;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validaCampos() {
+        if (field_nomeProduto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o nome do produto", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (ffield_dataCadastro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe a data de cadastro de produto.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (field_valorUnitario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o valor unitário do produto.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (field_quantidade.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe a quantidade do produto.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (field_cnpjFornecedor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o CNPJ do fornecedor.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
 }

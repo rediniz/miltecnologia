@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controle;
+package Modelo;
 
+import DAO.ProdutoDAO;
 import java.sql.Date;
 
 /**
@@ -27,6 +28,10 @@ public class Produto {
         this.valorUnitario = valorUnitario;
         this.quantidade = quantidade;
         this.fornecedor = fornecedor;
+    }
+    
+     public Produto() {
+
     }
 
     /**
@@ -111,5 +116,9 @@ public class Produto {
      */
     public void setFornecedor(String fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    public void salvar() {
+        ProdutoDAO.salvar(this);
     }
 }

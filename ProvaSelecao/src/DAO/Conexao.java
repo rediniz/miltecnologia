@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
 public class Conexao {
 
     private static final String STR_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE = "hostess";
+    private static final String DATABASE = "prova";
     private static final String IP = "127.0.0.1";
     private static final String STR_CON = "jdbc:mysql://" + IP + ":3306/" + DATABASE;
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "admin";
     private static Connection objConexao = null;
 
     public Conexao() {
