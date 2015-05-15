@@ -27,23 +27,30 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelNomeProduto" min="-2" max="-2" attributes="0"/>
-                  <Component id="label_Marca" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="combo_marca" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="label_dataCadastro" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="label_valorUnitario" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="field_nomeProduto" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
-                  <Component id="label_quantidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="field_quantidade" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                  <Component id="label_idFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="field_cnpjFornecedor" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="ffield_dataCadastro" alignment="0" max="32767" attributes="0"/>
-                      <Component id="field_valorUnitario" alignment="0" pref="120" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelNomeProduto" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_Marca" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="combo_marca" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_dataCadastro" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_valorUnitario" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_nomeProduto" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
+                          <Component id="label_quantidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_quantidade" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="label_idFornecedor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="field_cnpjFornecedor" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="ffield_dataCadastro" alignment="0" max="32767" attributes="0"/>
+                              <Component id="field_valorUnitario" alignment="0" pref="120" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Component id="button_cadastrar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="button_cadastrar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="25" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

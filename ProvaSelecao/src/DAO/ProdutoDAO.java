@@ -82,6 +82,8 @@ public class ProdutoDAO {
             stm.execute(strConsulta);
             ResultSet resultado = stm.getResultSet();
             
+            //Aqui montaria a tabela com o resultado para exibição
+            
             stm.close();
 
         } catch (SQLException ex) {
